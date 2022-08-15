@@ -14,6 +14,7 @@ int main(void)
         solve(a, b, c);
     goodbye();
 
+    return 0;
 }
 
 void greeting()
