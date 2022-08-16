@@ -1,17 +1,16 @@
 #include <stdio.h>
-#include <math.h>                                 //uses for pow() and for NAN
+#include <math.h>                                 //uses for pow() and for NAN and isnan()
+#include "name.h"
 
 int main(void)
 {
-    double a = NAN, b = NAN, c = NAN;
-    void greeting();
-    int input(double &k1, double &k2, double &k3);
-    void solve(double k1, double k2, double k3);
-    void goodbye();
+    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
 
     greeting();
-    while (input(a, b, c))
-        solve(a, b, c);
+    while(input(a, b, c)) {
+        solve(a, b, c, x1, x2);
+        output(x1, x2);
+    }
     goodbye();
 
     return 0;
@@ -32,34 +31,43 @@ int input(double &k1, double &k2, double &k3)
         return 0;
 }
 
-void solve(double k1, double k2, double k3)
+void solve(double k1, double k2, double k3, double &s1, double &s2)
 {
-    void infinitySolution();
-    void noSolution();
-    void linearSolution(double k2, double k3);
-    void oneSquareSolution(double k1, double k2);
-    void twoSquareSolution(double k1, double k2, double k3);
     double dis = NAN;
 
+    s1 = s2 = NAN;
     //case, when it's linear equation
     if (k1 == 0) {
         if (k2 == 0) {
-            if (k3 == 0)
-                infinitySolution();
-            else
-                noSolution();
+            if (k3 == 0) {
+                s1 = 0;
+                s2 = 0;
+            }
         } else
-            linearSolution(k2, k3);
+            s1 = -k3/k2;
     //case, when it's quadratic equation
     } else {
         dis = k2*k2 - 4*k1*k3;
-        if (dis > 0)
-            twoSquareSolution(k1, k2, k3);
+        if (dis > 0) {
+            s1 = (-k2 - pow(dis, 0.5))/(2*k1);
+            s2 = (-k2 + pow(dis, 0.5))/(2*k1);
+        }
         else if (dis == 0)
-            oneSquareSolution(k1, k2);
-        else
-            noSolution();
+            s1 = -k2/(2*k1);
     }
+}
+
+void output(double s1, double s2)
+{
+    if (s1 == 0 and s2 == 0)
+        infinitySolution();
+    else if (!isnan(s1) and !isnan(s2))
+        twoSquareSolution(s1, s2);
+    else if (!isnan(s1) and isnan(s2))
+        oneSolution(s1);
+    else if (isnan(s1) and isnan(s2))
+        noSolution();
+
 }
 
 void infinitySolution()
@@ -72,23 +80,14 @@ void noSolution()
     printf("No solutions\n");
 }
 
-void linearSolution(double k2, double k3)
+void oneSolution(double s1)
 {
-    printf("One solution x=%lf\n", -k3/k2);
+    printf("One solution x = %lf\n", s1);
 }
 
-void oneSquareSolution(double k1, double k2)
+void twoSquareSolution(double s1, double s2)
 {
-    printf("One solution x = %lf\n", -k2/(2*k1));
-}
-
-void twoSquareSolution(double k1, double k2, double k3)
-{
-    double dis = NAN;
-
-    dis = k2*k2 - 4*k1*k3;
-    printf("Two solutions x1 = %lf, x2 = %lf\n",
-    (-k2 - pow(dis, 0.5))/(2*k1), (-k2 + pow(dis, 0.5))/(2*k1));
+    printf("Two solutions x1 = %lf, x2 = %lf\n", s1, s2);
 }
 
 void goodbye()
