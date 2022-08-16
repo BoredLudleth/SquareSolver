@@ -7,7 +7,7 @@ int main(void)
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
 
     greeting();
-    while(input(a, b, c)) {
+    while(input(&a, &b, &c)) {
         solve(a, b, c, x1, x2);
         output(x1, x2);
     }
@@ -22,10 +22,10 @@ void greeting()
     printf("Type any symbol to exit\n");
 }
 
-int input(double &k1, double &k2, double &k3)
+int input(double *k1, double *k2, double *k3)
 {
     printf("Enter the coefficients a, b and c separated by a space\n");
-    if (scanf("%lf %lf %lf", &k1, &k2, &k3) == 3)
+    if (scanf("%lf %lf %lf", &*k1, &*k2, &*k3) == 3)
         return 1;
     else
         return 0;
