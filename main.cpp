@@ -2,21 +2,19 @@
 #include <math.h>                                 //uses for pow() and for NAN
 #include <assert.h>
 #include <ctype.h>
-#include "name.h"
-#include "deffunc.cpp"
+#include "SquareSolver.h"
+#include "SquareSolver.cpp"
 
-int main()
-{
+int main() {
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
-    int x_count = -1;
     char cont = 'y';
+    enum allAnswers ans;
 
     greeting();
-    while (cont == 'y'){
-        while(!input(&a, &b, &c))
-            failedInput();
-        x_count = solve(a, b, c, &x1, &x2);
-        output(x_count, x1, x2);
+    while (cont == 'y') {
+        while(!input(&a, &b, &c)) failedInput();
+        ans = (allAnswers) solve(a, b, c, &x1, &x2);
+        output(x1, x2, ans);
         nextEquation(&cont);
     }
     goodbye();
