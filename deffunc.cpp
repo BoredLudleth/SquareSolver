@@ -11,18 +11,38 @@ int input(double *k1, double *k2, double *k3) {
         return 0;
 }
 
-int solve(double k1, double k2, double k3, double *s1, double *s2) {
-    double dis = NAN;
+void failedInput()
+{
+	while ((getchar()) != '\n');
+        printf("Oh no, you entered another symbol. Be more attentive and try again!\n");
+}
 
-    if (k1 == 0) {
+int isequal(double x, double y) {
+    double eps = 1e-7;
+
+    if(fabs(x - y) < eps)
+        return 1;
+    else
+        return 0;
+}
+
+int solve(double k1, double k2, double k3, double *s1, double *s2) {
+    assert(isfinite(k1));
+	assert(isfinite(k2));
+	assert(isfinite(k3));
+
+	assert(*s1 != NULL);
+	assert(*s2 != NULL);
+	assert(*s1 != *s2);
+    if (isequal(k1, 0)) {
         linearSolve(k2, k3, &*s1);
     } else
         squareSolve(k1, k2, k3, &*s1, &*s2);
 }
 
 int linearSolve(double k2, double k3, double *s1) {
-    if (k2 == 0) {
-        if (k3 == 0)
+    if (isequal(k2, 0)) {
+        if (isequal(k3, 0))
             return 3;
         else
             return 0;
@@ -40,7 +60,7 @@ int squareSolve(double k1, double k2, double k3, double *s1, double *s2) {
         *s2 = (-k2 + pow(dis, 0.5)) / (2 * k1);
         return 2;
     }
-    else if (dis == 0) {
+    else if (isequal(dis, 0)) {
         *s1 = -k2 / (2 * k1);
         return 1;
     } else
@@ -61,8 +81,16 @@ void output(int roots, double s1, double s2) {
         case 3:
             printf("An infinite number of solutions\n");
             break;
+        default:
+            break;
     }
 
+}
+
+void nextEquation(char *sym) {
+    printf("Do you want continue? y/n\n");
+    while (!isspace(getchar()));
+        scanf("%c", &*sym);
 }
 
 void goodbye() {
