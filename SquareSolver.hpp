@@ -1,3 +1,15 @@
+#include <stdio.h>
+#include <math.h>
+#include <assert.h>
+#include <ctype.h>
+
+enum allAnswers {
+        NOANSWERS = 0,
+        ONEANSWER = 1,
+        INFINITYANSWERS = 2,
+        TWOANSWERS = 3
+};
+
 void greeting();
 
 int input(double *k1, double *k2, double *k3);
