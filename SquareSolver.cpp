@@ -1,11 +1,4 @@
-enum allAnswers {
-        NOLINEARANSWERS =0,
-        ONELINEAR=1,
-        INFINITYLINEAR=2,
-        NOQUADRATICANSWERS=3,
-        ONEQUADRATIC=4,
-        TWOQUADRATIC=5
-};
+#include "SquareSolver.hpp"
 
 void greeting() {
     printf("Hello, this program helps to solve quadratic equations!\n");
@@ -51,12 +44,12 @@ int linearSolve(double k2, double k3, double *s1) {
 
     if (isequal(k2, 0)) {
         if (isequal(k3, 0))
-            return INFINITYLINEAR;
+            return INFINITYANSWERS;
         else
-            return NOLINEARANSWERS;
+            return NOANSWERS;
     } else {
         *s1 = -k3 / k2;
-        return ONELINEAR;
+        return ONEANSWER;
     }
 }
 
@@ -70,30 +63,28 @@ int squareSolve(double k1, double k2, double k3, double *s1, double *s2) {
     if (dis > 0) {
         *s1 = (-k2 - pow(dis, 0.5)) / (2 * k1);
         *s2 = (-k2 + pow(dis, 0.5)) / (2 * k1);
-        return TWOQUADRATIC;
+        return TWOANSWERS;
     }
     else if (isequal(dis, 0)) {
         *s1 = -k2 / (2 * k1);
-        return ONEQUADRATIC;
+        return ONEANSWER;
     } else {
-        return NOQUADRATICANSWERS;
+        return NOANSWERS;
     }
 }
 
 void output(double s1, double s2, int ans) {
     switch(ans) {
-        case NOLINEARANSWERS:
-        case NOQUADRATICANSWERS:
+        case NOANSWERS:
             printf("No solutions\n");
             break;
-        case ONELINEAR:
-        case ONEQUADRATIC:
+        case ONEANSWER:
             printf("One solution x = %lf\n", s1);
             break;
-        case TWOQUADRATIC:
+        case TWOANSWERS:
             printf("Two solutions x1 = %lf, x2 = %lf\n", s1, s2);
             break;
-        case INFINITYLINEAR:
+        case INFINITYANSWERS:
             printf("An infinite number of solutions\n");
             break;
         default:
