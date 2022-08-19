@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <math.h>
-#include <assert.h>
-#include <ctype.h>
-
 enum allAnswers {
         NOANSWERS = 0,
         ONEANSWER = 1,
