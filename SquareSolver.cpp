@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "SquareSolver.hpp"
 
+
 void greeting() {
     printf("Hello, this program helps to solve quadratic equations!\n");
 }
@@ -64,13 +65,15 @@ int squareSolve(double k1, double k2, double k3, double *s1, double *s2) {
     double dis = NAN;
 
     dis = k2 * k2 - 4 * k1 * k3;
+    k1 *= 2;
+    dis = sqrt(dis);
     if (dis > 0) {
-        *s1 = (-k2 - pow(dis, 0.5)) / (2 * k1);
-        *s2 = (-k2 + pow(dis, 0.5)) / (2 * k1);
+        *s1 = (-k2 - dis) / k1;
+        *s2 = (-k2 + dis) / k1;
         return TWOANSWERS;
     }
     else if (isequal(dis, 0)) {
-        *s1 = -k2 / (2 * k1);
+        *s1 = -k2 / k1;
         return ONEANSWER;
     } else {
         return NOANSWERS;
