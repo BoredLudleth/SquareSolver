@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <math.h>
+#include <assert.h>
+#include <ctype.h>
 #include "SquareSolver.hpp"
 
 int main() {
