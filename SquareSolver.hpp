@@ -1,8 +1,8 @@
 enum allAnswers {
-        NOANSWERS = 0,
-        ONEANSWER = 1,
-        INFINITYANSWERS = 2,
-        TWOANSWERS = 3
+    NOANSWERS = 0,
+    ONEANSWER = 1,
+    INFINITYANSWERS = 2,
+    TWOANSWERS = 3
 };
 
 void greeting();
