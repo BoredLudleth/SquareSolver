@@ -2,6 +2,7 @@
 #include <math.h>
 #include <assert.h>
 #include <ctype.h>
+#include "SquareSolver.hpp"
 
 void greeting() {
     printf("Hello, this program helps to solve quadratic equations!\n");
