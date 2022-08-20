@@ -29,10 +29,7 @@ void failedInput() {
 int isequal(double x, double y) {
     double eps = 1e-7;
 
-    if(fabs(x - y) < eps)
-        return 1;
-    else
-        return 0;
+    return fabs(x - y) < eps;
 }
 
 int solve(double k1, double k2, double k3, double *s1, double *s2) {
