@@ -25,10 +25,10 @@ enum allAnswers {
 */
 
 enum allAnswers {
-    NOANSWERS = 0, ///< Indicates that equation hasn't got roots
-    ONEANSWER = 1, ///< Indicates that equation has got one root
+    NOANSWERS       = 0, ///< Indicates that equation hasn't got roots
+    ONEANSWER       = 1, ///< Indicates that equation has got one root
     INFINITYANSWERS = 2, ///< Indicates that equation has got infinity roots
-    TWOANSWERS = 3 ///< Indicates that equation has got two roots
+    TWOANSWERS      = 3 ///< Indicates that equation has got two roots
 };
 
 /*!
