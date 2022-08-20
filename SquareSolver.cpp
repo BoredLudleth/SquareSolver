@@ -61,8 +61,8 @@ void failedInput()
 }
 \endcode
 */
-void failedInput()
-{
+
+void failedInput() {
     while ((getchar()) != '\n') continue;
     printf("Oh no, you entered another symbol. Be more attentive and try again!\n");
 }
