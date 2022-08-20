@@ -1,8 +1,25 @@
+/*!
+\file
+\brief Header file with function definitions
+\details This file contains definitions of the main functions
+*/
+
+/*! Set of all possible answers
+\code
 enum allAnswers {
-    NOANSWERS = 0,
-    ONEANSWER = 1,
-    INFINITYANSWERS = 2,
-    TWOANSWERS = 3
+    NOANSWERS = 0, ///< Indicates that equation hasn't got roots
+    ONEANSWER = 1, ///< Indicates that equation has got one root
+    INFINITYANSWERS = 2, ///< Indicates that equation has got infinity roots
+    TWOANSWERS = 3 ///< Indicates that equation has got two roots
+};
+\endcode
+*/
+
+enum allAnswers {
+    NOANSWERS = 0, ///< Indicates that equation hasn't got roots
+    ONEANSWER = 1, ///< Indicates that equation has got one root
+    INFINITYANSWERS = 2, ///< Indicates that equation has got infinity roots
+    TWOANSWERS = 3 ///< Indicates that equation has got two roots
 };
 
 void greeting();
