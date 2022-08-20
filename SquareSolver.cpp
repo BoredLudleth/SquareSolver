@@ -101,7 +101,6 @@ void output(double s1, double s2, int ans) {
         default:
             break;
     }
-
 }
 
 void nextEquation(char *sym) {
