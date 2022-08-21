@@ -57,7 +57,6 @@ int input(double *k1, double *k2, double *k3);
 
 void failedInput();
 
-
 /*!
 \brief Compare two double variables
 \details Operation == can be incorrect for double variables.
@@ -123,6 +122,13 @@ void output(double s1, double s2, int ans);
 */
 
 void nextEquation(char *sym);
+
+/*!
+\brief Function tests checks the correctness of work
+*/
+
+
+void test();
 
 /*!
 \brief Function says goodbye
