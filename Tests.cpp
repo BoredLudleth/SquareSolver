@@ -1,3 +1,7 @@
+/*!
+\file
+\brief This file checks, if this program correctly solve equation
+*/
 #include <stdio.h>
 #include <math.h>
 #include "SquareSolver.hpp"
