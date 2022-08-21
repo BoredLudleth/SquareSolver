@@ -1,6 +1,6 @@
 /*!
 \file
-\brief This fail contains descriptions and code of all functions
+\brief This file contains descriptions and code of all functions
 */
 
 #include <stdio.h>
@@ -101,7 +101,7 @@ void output(double s1, double s2, int ans) {
 }
 
 void nextEquation(char *sym) {
-    printf("Do you want continue? y/n\n");
+    printf("Do you want continue? y/n\nIf you want to test program print t\n");
     while (!isspace(getchar())) continue;
     scanf("%c", sym);
 }
@@ -109,3 +109,4 @@ void nextEquation(char *sym) {
 void goodbye() {
     printf("Program completed! Have a good day!\n");
 }
+
