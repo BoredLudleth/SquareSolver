@@ -24,8 +24,13 @@ int main() {
         ans = (allAnswers) solve(a, b, c, &x1, &x2);
         output(x1, x2, ans);
         nextEquation(&cont);
+        while (cont == 't') {
+            test();
+            nextEquation(&cont);
+        }
     }
     goodbye();
 
     return 0;
 }
+
