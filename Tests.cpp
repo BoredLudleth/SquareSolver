@@ -1,69 +1,41 @@
 /*!
 \file
-\brief This file checks, if this program correctly solve equation
+\brief File contains checker order
 */
+
 #include <stdio.h>
 #include <math.h>
 #include "SquareSolver.hpp"
+#include "Tests.hpp"
 
-void test() {
-    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+void alltests() {
+    double a = NAN, b = NAN, c = NAN;
+    enum allAnswers ans;
+    FILE *mytests;
 
-    //Test[#1]
-    a = 0;
-    b = 0;
-    c = 0;
-    printf("Test[#1] - ");
-    if (solve(a, b, c, &x1, &x2) == INFINITYANSWERS)
-        printf("True\n");
+    mytests = fopen("TEST.txt", "r");
+    while(fscanf(mytests, "%lf %lf %lf %d", &a, &b, &c, &ans) == 4)
+       test(a, b, c, ans);
+    fclose(mytests);
+}
+
+void test(double k1, double k2, double k3, int correctAns) {
+    double x1 = NAN, x2 = NAN;
+    bool is_correct = false;
+
+    if (solve(k1, k2, k3, &x1, &x2) == correctAns) {
+        if (correctAns == INFINITYANSWERS or correctAns == NOANSWERS) {
+            is_correct = true;
+        } else if (correctAns == ONEANSWER) {
+            if (isequal(k1 * x1 * x1 + k2 * x1 + k3, 0))
+                is_correct = true;
+        } else if (correctAns == TWOANSWERS) {
+            if (isequal(k1 * x1 * x1 + k2 * x1 + k3, 0) && isequal(k1 * x2 * x2 + k2 * x2 + k3, 0))
+                is_correct = true;
+        }
+    }
+    if (is_correct)
+        printf("Test[#] - True\n");
     else
-        printf("False. Problem with coefficients %lf %lf %lf\n", a, b, c);
-    //Test[#2]
-    a = 0;
-    b = 0;
-    c = 1;
-    printf("Test[#2] - ");
-    if (solve(a, b, c, &x1, &x2) == NOANSWERS)
-        printf("True\n");
-    else
-        printf("False. Problem with coefficients %lf %lf %lf\n", a, b, c);
-    //Test[#3]
-    a = 0;
-    b = 1;
-    c = 1;
-    solve(a, b, c, &x1, &x2);
-    printf("Test[#3] - ");
-    if (a * x1 * x1 + b * x1 + c == 0 or a * x2 * x2 + b * x2 + c == 0)
-        printf("True\n");
-    else
-        printf("False. Problem with coefficients %lf %lf %lf\n", a, b, c);
-    //Test[#4]
-    a = 1;
-    b = 1;
-    c = 1;
-    printf("Test[#4] - ");
-    if (solve(a, b, c, &x1, &x2) == NOANSWERS)
-        printf("True\n");
-    else
-        printf("False. Problem with coefficients %lf %lf %lf\n", a, b, c);
-    //Test[#5]
-    a = 1;
-    b = 12;
-    c = 36;
-    solve(a, b, c, &x1, &x2);
-    printf("Test[#5] - ");
-    if (a * x1 * x1 + b * x1 + c == 0 or a * x2 * x2 + b * x2 + c == 0)
-        printf("True\n");
-    else
-        printf("False. Problem with coefficients %lf %lf %lf\n", a, b, c);
-    //Test[#6]
-    a = 1;
-    b = 5;
-    c = -6;
-    solve(a, b, c, &x1, &x2);
-    printf("Test[#6] - ");
-    if (a * x1 * x1 + b * x1 + c == 0 and a * x2 * x2 + b * x2 + c == 0)
-        printf("True\n");
-    else
-        printf("False. Problem with coefficients %lf %lf %lf\n", a, b, c);
+        printf("Test[#] - False. Problem with a = %lf, b = %lf, c = %lf\n", k1, k2, k3);
 }
