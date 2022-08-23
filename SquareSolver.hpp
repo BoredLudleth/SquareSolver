@@ -13,22 +13,13 @@ It includes linear cases.
 \details This file contains definitions of the main functions
 */
 
-/*! Set of all possible answers
-\code
-enum allAnswers {
-    NOANSWERS = 0, ///< Indicates that equation hasn't got roots
-    ONEANSWER = 1, ///< Indicates that equation has got one root
-    INFINITYANSWERS = 2, ///< Indicates that equation has got infinity roots
-    TWOANSWERS = 3 ///< Indicates that equation has got two roots
-};
-\endcode
-*/
+/// Set of all possible answers
 
 enum allAnswers {
     NOANSWERS       = 0, ///< Indicates that equation hasn't got roots
     ONEANSWER       = 1, ///< Indicates that equation has got one root
-    INFINITYANSWERS = 2, ///< Indicates that equation has got infinity roots
-    TWOANSWERS      = 3 ///< Indicates that equation has got two roots
+    TWOANSWERS      = 2, ///< Indicates that equation has got two roots
+    INFINITYANSWERS = 3  ///< Indicates that equation has got infinity roots
 };
 
 /*!
@@ -39,15 +30,15 @@ enum allAnswers {
 void greeting();
 
 /*!
-\brief Program reads users input
-\details Assigns values to k1, k2 and k3
+\brief Program reads users k1, k2 and k3
+\details If user entered another symbol, program asks enter data again
+If you enter test, you will run test
 \param[in,out] k1 Coefficient before x^2
 \param[in,out] k2 Coefficient before x
 \param[in,out] k3 Free coefficient
-\return Return 1 if input correct and 0 if input is wrong.
 */
 
-int input(double *k1, double *k2, double *k3);
+void input(double *k1, double *k2, double *k3);
 
 /*!
 \brief Notifies the user of invalid input
@@ -66,7 +57,7 @@ So this function can compare them with precision 1e-7
 \return Return 1 if x equal y and 0 if it is wrong.
 */
 
-int isequal(double x, double y);
+bool isequal(double x, double y);
 
 /*!
 \brief Solves square equation
@@ -113,7 +104,7 @@ int squareSolve(double k1, double k2, double k3, double *s1, double *s2);
 \param [in] ans Indicates how many roots(allAnswers)
 */
 
-void output(double s1, double s2, int ans);
+void output(double s1, double s2, int numOfAnswers);
 
 /*!
 \brief Ask user if he want continue
@@ -127,8 +118,7 @@ void nextEquation(char *sym);
 \brief Function tests checks the correctness of work
 */
 
-
-void test();
+void alltests();
 
 /*!
 \brief Function says goodbye
