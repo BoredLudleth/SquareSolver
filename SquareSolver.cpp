@@ -1,6 +1,6 @@
 /*!
 \file
-\brief This file contains descriptions and code of all functions
+\brief This fail contains descriptions and code of all functions
 */
 
 #include <stdio.h>
@@ -8,35 +8,40 @@
 #include <assert.h>
 #include <ctype.h>
 #include "SquareSolver.hpp"
+#define EPSILON 1e-7
 
 void greeting() {
     printf("Hello, this program helps to solve quadratic equations!\n");
 }
 
-int input(double *k1, double *k2, double *k3) {
+void input(double *k1, double *k2, double *k3) {
+    assert(k1 != NULL && k2 != NULL && k3 != NULL && "adress of k1, k2 and k3 can't be NULL");
     printf("Enter the coefficients a, b and c separated by a space\n");
-    if (scanf("%lf %lf %lf", k1, k2, k3) == 3)
-        return 1;
-    else
-        return 0;
+    while(scanf("%lf %lf %lf", k1, k2, k3) != 3) {
+        int n = 0;
+
+        scanf("test%n", &n);
+        if (n == 4)
+            alltests();
+         else
+            failedInput();
+    }
 }
 
 void failedInput() {
-    while ((getchar()) != '\n') continue;
+    while ((getchar()) != '\n')
+        continue;
     printf("Oh no, you entered another symbol. Be more attentive and try again!\n");
 }
 
-int isequal(double x, double y) {
-    double eps = 1e-7;
-
-    return fabs(x - y) < eps;
+bool isequal(double x, double y) {
+    return fabs(x - y) < EPSILON;
 }
 
 int solve(double k1, double k2, double k3, double *s1, double *s2) {
     assert(isfinite(k1) && isfinite(k2) && isfinite(k3) && "number must be finite");
     assert(*s1 != NULL && *s2 != NULL && "s1 and s2 must have not null address");
     assert(*s1 != *s2 && "must point to different variables");
-
     if (isequal(k1, 0))
         return linearSolve(k2, k3, s1);
     else
@@ -62,18 +67,14 @@ int squareSolve(double k1, double k2, double k3, double *s1, double *s2) {
     assert(isfinite(k1) && isfinite(k2) && isfinite(k3) && "number must be finite");
     assert(*s1 != NULL && *s2 != NULL && "s1 and s2 must have not null address");
 
-    double dis = NAN;
-
-    dis = k2 * k2 - 4 * k1 * k3;
+    double dis = k2 * k2 - 4 * k1 * k3;
     k1 *= 2;
-
     if (dis > 0) {
         dis = sqrt(dis);
         *s1 = (-k2 - dis) / k1;
         *s2 = (-k2 + dis) / k1;
         return TWOANSWERS;
-    }
-    else if (isequal(dis, 0)) {
+    } else if (isequal(dis, 0)) {
         *s1 = -k2 / k1;
         return ONEANSWER;
     } else {
@@ -81,8 +82,8 @@ int squareSolve(double k1, double k2, double k3, double *s1, double *s2) {
     }
 }
 
-void output(double s1, double s2, int ans) {
-    switch(ans) {
+void output(double s1, double s2, int numOfAnswers) {
+    switch(numOfAnswers) {
         case NOANSWERS:
             printf("No solutions\n");
             break;
@@ -96,17 +97,18 @@ void output(double s1, double s2, int ans) {
             printf("An infinite number of solutions\n");
             break;
         default:
+            printf("Something go wrong");
             break;
     }
 }
 
 void nextEquation(char *sym) {
-    printf("Do you want continue? y/n\nIf you want to test program print t\n");
-    while (!isspace(getchar())) continue;
+    printf("Do you want continue? y/n\n");
+    while (!isspace(getchar()))
+        continue;
     scanf("%c", sym);
 }
 
 void goodbye() {
     printf("Program completed! Have a good day!\n");
 }
-
