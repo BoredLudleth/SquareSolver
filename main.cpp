@@ -11,21 +11,13 @@ After correct input, program output answer and ask user if he wants to continue.
 #include <assert.h>
 #include <ctype.h>
 #include "SquareSolver.hpp"
-#include "Tests.hpp"
 
 int main() {
-    char cont = 'y';
+    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
 
-    greeting();
-    while(cont == 'y') {
-        double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
-
-        input(&a, &b, &c);
-        enum allAnswers ans = (allAnswers) solve(a, b, c, &x1, &x2);
-        output(x1, x2, ans);
-        nextEquation(&cont);
-    }
-    goodbye();
+    input(&a, &b, &c);
+    enum allAnswers ans = (allAnswers) squareSolve(a, b, c, &x1, &x2);
+    output(x1, x2, ans); 
 
     return 0;
 }
