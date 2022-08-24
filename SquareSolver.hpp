@@ -23,13 +23,6 @@ enum allAnswers {
 };
 
 /*!
-\brief Function greet user
-\details Say "Hello, this program helps to solve quadratic equations!"
-*/
-
-void greeting();
-
-/*!
 \brief Program reads users k1, k2 and k3
 \details If user entered another symbol, program asks enter data again
 If you enter test, you will run test
@@ -96,6 +89,7 @@ int linearSolve(double k2, double k3, double *s1);
 
 int squareSolve(double k1, double k2, double k3, double *s1, double *s2);
 
+
 /*!
 \brief Print answer for equation
 \details Print answer in the form [number of roots]<roots>
@@ -105,24 +99,3 @@ int squareSolve(double k1, double k2, double k3, double *s1, double *s2);
 */
 
 void output(double s1, double s2, int numOfAnswers);
-
-/*!
-\brief Ask user if he want continue
-\details Asks"Do you want continue? y/n" and writes down the answer
-\param[out] sym Answer on the question
-*/
-
-void nextEquation(char *sym);
-
-/*!
-\brief Function tests checks the correctness of work
-*/
-
-void alltests();
-
-/*!
-\brief Function says goodbye
-\details Say "Program completed! Have a good day!"
-*/
-
-void goodbye();
