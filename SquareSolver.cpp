@@ -5,26 +5,22 @@
 
 #include <stdio.h>
 #include <math.h>
-#include <assert.h>
 #include <ctype.h>
 #include "SquareSolver.hpp"
-#define EPSILON 1e-7
 
-void greeting() {
-    printf("Hello, this program helps to solve quadratic equations!\n");
-}
+#define NEWASSERT(condition)                                                            \
+    if (!(condition)) {                                                                 \
+        printf("Problem with in file %s in function %s, condition %s in line %d\n",     \
+               __FILE__, __FUNCTION__, #condition, __LINE__);                           \
+        exit(1);                                                                        \
+    }
 
-void input(double *k1, double *k2, double *k3) {
-    assert(k1 != NULL && k2 != NULL && k3 != NULL && "adress of k1, k2 and k3 can't be NULL");
-    printf("Enter the coefficients a, b and c separated by a space\n");
-    while(scanf("%lf %lf %lf", k1, k2, k3) != 3) {
-        int n = 0;
-
-        scanf("test%n", &n);
-        if (n == 4)
-            alltests();
-         else
-            failedInput();
+void input(double *a, double *b, double *c) {
+    NEWASSERT(a != NULL && b != NULL && c != NULL);
+    printf("Hello, this program helps to solve quadratic equations!\n"
+           "Enter the coefficients a, b and c separated by a space\n");
+    while(scanf("%lf %lf %lf", a, b, c) != 3) {
+        failedInput();
     }
 }
 
@@ -35,63 +31,60 @@ void failedInput() {
 }
 
 bool isequal(double x, double y) {
+    const double EPSILON = 1e-7;
+
     return fabs(x - y) < EPSILON;
 }
 
-int solve(double k1, double k2, double k3, double *s1, double *s2) {
-    assert(isfinite(k1) && isfinite(k2) && isfinite(k3) && "number must be finite");
-    assert(*s1 != NULL && *s2 != NULL && "s1 and s2 must have not null address");
-    assert(*s1 != *s2 && "must point to different variables");
-    if (isequal(k1, 0))
-        return linearSolve(k2, k3, s1);
-    else
-        return squareSolve(k1, k2, k3, s1, s2);
-}
+int linearSolve(double b, double c, double *x1) {
+    NEWASSERT(isfinite(b) && isfinite(c));
+    NEWASSERT(*x1 != 0  && "x1 must have not null address");
 
-int linearSolve(double k2, double k3, double *s1) {
-    assert(isfinite(k2) && isfinite(k3) && "number must be finite");
-    assert(*s1 != NULL  && "s1 must have not null address");
-
-    if (isequal(k2, 0)) {
-        if (isequal(k3, 0))
+    if (isequal(b, 0)) {
+        if (isequal(c, 0))
             return INFINITYANSWERS;
         else
             return NOANSWERS;
     } else {
-        *s1 = -k3 / k2;
+        *x1 = -c / b;
         return ONEANSWER;
     }
 }
 
-int squareSolve(double k1, double k2, double k3, double *s1, double *s2) {
-    assert(isfinite(k1) && isfinite(k2) && isfinite(k3) && "number must be finite");
-    assert(*s1 != NULL && *s2 != NULL && "s1 and s2 must have not null address");
+int squareSolve(double a, double b, double c, double *x1, double *x2) {
+    NEWASSERT(isfinite(a) && isfinite(b) && isfinite(c) && "number must be finite");
+    NEWASSERT(*x1 != 0 && *x2 != 0 && "x1 and x2 must have not null address");
 
-    double dis = k2 * k2 - 4 * k1 * k3;
-    k1 *= 2;
+    if (isequal(a, 0)) {
+        return linearSolve(b, c, x1);
+    }
+
+    double dis = b*b - 4*a*c;
+
+    a *= 2;
     if (dis > 0) {
         dis = sqrt(dis);
-        *s1 = (-k2 - dis) / k1;
-        *s2 = (-k2 + dis) / k1;
+        *x1 = (-b - dis) / a;
+        *x2 = (-b + dis) / a;
         return TWOANSWERS;
-    } else if (isequal(dis, 0)) {
-        *s1 = -k2 / k1;
+    } 
+    if (isequal(dis, 0)) {
+        *x1 = -b / a;
         return ONEANSWER;
-    } else {
-        return NOANSWERS;
     }
+    return NOANSWERS;
 }
 
-void output(double s1, double s2, int numOfAnswers) {
+void output(double x1, double x2, int numOfAnswers) {
     switch(numOfAnswers) {
         case NOANSWERS:
             printf("No solutions\n");
             break;
         case ONEANSWER:
-            printf("One solution x = %lf\n", s1);
+            printf("One solution x = %lf\n", x1);
             break;
         case TWOANSWERS:
-            printf("Two solutions x1 = %lf, x2 = %lf\n", s1, s2);
+            printf("Two solutions x1 = %lf, x2 = %lf\n", x1, x2);
             break;
         case INFINITYANSWERS:
             printf("An infinite number of solutions\n");
@@ -100,15 +93,5 @@ void output(double s1, double s2, int numOfAnswers) {
             printf("Something go wrong");
             break;
     }
-}
-
-void nextEquation(char *sym) {
-    printf("Do you want continue? y/n\n");
-    while (!isspace(getchar()))
-        continue;
-    scanf("%c", sym);
-}
-
-void goodbye() {
     printf("Program completed! Have a good day!\n");
 }
