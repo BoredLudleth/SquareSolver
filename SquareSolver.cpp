@@ -19,9 +19,18 @@ void input(double *a, double *b, double *c) {
     NEWASSERT(a != NULL && b != NULL && c != NULL);
     printf("Hello, this program helps to solve quadratic equations!\n"
            "Enter the coefficients a, b and c separated by a space\n");
-    while(scanf("%lf %lf %lf", a, b, c) != 3) {
+    for( ; scanf("%lf %lf %lf", a, b, c) != 3, input_check(); ) {
         failedInput();
     }
+}
+
+bool input_check() {
+    char ch = 0;
+
+    for ( ; (ch = getchar()) != '\n'; )
+        if (!isspace(ch))
+            return true;
+    return false;
 }
 
 void failedInput() {
@@ -30,7 +39,7 @@ void failedInput() {
     printf("Oh no, you entered another symbol. Be more attentive and try again!\n");
 }
 
-bool isequal(double x, double y) {
+bool isEqual(double x, double y) {
     const double EPSILON = 1e-7;
 
     return fabs(x - y) < EPSILON;
@@ -40,8 +49,8 @@ int linearSolve(double b, double c, double *x1) {
     NEWASSERT(isfinite(b) && isfinite(c));
     NEWASSERT(*x1 != 0  && "x1 must have not null address");
 
-    if (isequal(b, 0)) {
-        if (isequal(c, 0))
+    if (isEqual(b, 0)) {
+        if (isEqual(c, 0))
             return INFINITYANSWERS;
         else
             return NOANSWERS;
@@ -55,7 +64,7 @@ int squareSolve(double a, double b, double c, double *x1, double *x2) {
     NEWASSERT(isfinite(a) && isfinite(b) && isfinite(c) && "number must be finite");
     NEWASSERT(*x1 != 0 && *x2 != 0 && "x1 and x2 must have not null address");
 
-    if (isequal(a, 0)) {
+    if (isEqual(a, 0)) {
         return linearSolve(b, c, x1);
     }
 
@@ -68,7 +77,7 @@ int squareSolve(double a, double b, double c, double *x1, double *x2) {
         *x2 = (-b + dis) / a;
         return TWOANSWERS;
     } 
-    if (isequal(dis, 0)) {
+    if (isEqual(dis, 0)) {
         *x1 = -b / a;
         return ONEANSWER;
     }
@@ -80,18 +89,23 @@ void output(double x1, double x2, int numOfAnswers) {
         case NOANSWERS:
             printf("No solutions\n");
             break;
+
         case ONEANSWER:
             printf("One solution x = %lf\n", x1);
             break;
+
         case TWOANSWERS:
             printf("Two solutions x1 = %lf, x2 = %lf\n", x1, x2);
             break;
+
         case INFINITYANSWERS:
             printf("An infinite number of solutions\n");
             break;
+
         default:
-            printf("Something go wrong");
+            printf("Something go wrong\n");
             break;
     }
+    
     printf("Program completed! Have a good day!\n");
 }
