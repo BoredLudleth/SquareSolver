@@ -23,15 +23,23 @@ enum allAnswers {
 };
 
 /*!
-\brief Program reads users k1, k2 and k3
+\brief Program reads users a, b and c
 \details If user entered another symbol, program asks enter data again
 If you enter test, you will run test
-\param[in,out] k1 Coefficient before x^2
-\param[in,out] k2 Coefficient before x
-\param[in,out] k3 Free coefficient
+\param[in,out] a Coefficient before x^2
+\param[in,out] b Coefficient before x
+\param[in,out] c Free coefficient
 */
 
-void input(double *k1, double *k2, double *k3);
+void input(double *a, double *b, double *c);
+
+/*!
+\brief Checks input 1 3 4;kladsj and 1 3 4 kk;j
+\details Clears the line on invalid input and print
+"Oh no, you entered another symbol. Be more attentive and try again!"
+*/
+
+bool input_check();
 
 /*!
 \brief Notifies the user of invalid input
@@ -50,52 +58,52 @@ So this function can compare them with precision 1e-7
 \return Return 1 if x equal y and 0 if it is wrong.
 */
 
-bool isequal(double x, double y);
+bool isEqual(double x, double y);
 
 /*!
 \brief Solves square equation
 \details Assigns roots and returns the number of answers
-\param[in] k1 Coefficient before x^2
-\param[in] k2 Coefficient before x
-\param[in] k3 Free coefficient
-\param[in,out] s1 First root
-\param[in,out] s2 Second root
+\param[in] a Coefficient before x^2
+\param[in] b Coefficient before x
+\param[in] c Free coefficient
+\param[in,out] x1 First root
+\param[in,out] x2 Second root
 \return Return number of answers
 */
 
-int solve(double k1, double k2, double k3, double *s1, double *s2);
+int solve(double a, double b, double c, double *x1, double *x2);
 
 /*!
 \brief Solve linear equation
 \details Assigns roots and solve linear equation
-\param[in] k2 Coefficient before x
-\param[in] k3 Free coefficient
-\param[in,out] s1 First root
+\param[in] b Coefficient before x
+\param[in] c Free coefficient
+\param[in,out] x1 First root
 \return Return number of answers
 */
 
-int linearSolve(double k2, double k3, double *s1);
+int linearSolve(double b, double c, double *x1);
 
 /*!
-\brief Solve square equation, if k1 not equal 0 (first coefficient before x^2)
+\brief Solve square equation, if a not equal 0 (first coefficient before x^2)
 \details Assigns roots and solve quadratic equation
-\param[in] k1 Coefficient before x^2
-\param[in] k2 Coefficient before x
-\param[in] k3 Free coefficient
-\param[in,out] s1 First root
-\param[in,out] s2 Second root
+\param[in] a Coefficient before x^2
+\param[in] b Coefficient before x
+\param[in] c Free coefficient
+\param[in,out] x1 First root
+\param[in,out] x2 Second root
 \return Return number of answers
 */
 
-int squareSolve(double k1, double k2, double k3, double *s1, double *s2);
+int squareSolve(double a, double b, double c, double *x1, double *x2);
 
 
 /*!
 \brief Print answer for equation
 \details Print answer in the form [number of roots]<roots>
-\param [in] s1 First root
-\param [in] s2 Second root
+\param [in] x1 First root
+\param [in] x2 Second root
 \param [in] ans Indicates how many roots(allAnswers)
 */
 
-void output(double s1, double s2, int numOfAnswers);
+void output(double x1, double x2, int numOfAnswers);
