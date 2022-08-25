@@ -17,3 +17,6 @@ Tests.o: Tests.cpp
 
 run_tests: test
 	.\test
+
+run_solver: solver
+	.\solver
