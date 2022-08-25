@@ -44,5 +44,6 @@ void test(double k1, double k2, double k3, int correctAns) {
     if (is_correct)
         printf("Test[#] - True\n");
     else
-        printf("Test[#] - False. Problem with a = %lf, b = %lf, c = %lf\n", k1, k2, k3);
+        printf("Test[#] - False. Problem with a = %lf, b = %lf, c = %lf,"
+               " found roots x1 = %lf, x2 =%lf\n", k1, k2, k3, x1, x2);
 }
