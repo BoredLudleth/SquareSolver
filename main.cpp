@@ -8,7 +8,6 @@ After correct input, program output answer and ask user if he wants to continue.
 
 #include <stdio.h>
 #include <math.h>
-#include <assert.h>
 #include <ctype.h>
 #include "SquareSolver.hpp"
 
