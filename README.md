@@ -20,5 +20,5 @@ make run_tests
 To run user's mode enter.
 
 ```
-.\solver.exe
+make run_solver
 ```
