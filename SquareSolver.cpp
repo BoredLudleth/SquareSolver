@@ -19,7 +19,7 @@ void input(double *a, double *b, double *c) {
     NEWASSERT(a != NULL && b != NULL && c != NULL);
     printf("Hello, this program helps to solve quadratic equations!\n"
            "Enter the coefficients a, b and c separated by a space\n");
-    for( ; scanf("%lf %lf %lf", a, b, c) != 3, input_check(); ) {
+    while ((scanf("%lf %lf %lf", a, b, c) != 3) || (input_check())) {
         failedInput();
     }
 }
@@ -27,9 +27,10 @@ void input(double *a, double *b, double *c) {
 bool input_check() {
     char ch = 0;
 
-    for ( ; (ch = getchar()) != '\n'; )
+    while ((ch = getchar()) != '\n') {
         if (!isspace(ch))
             return true;
+    }
     return false;
 }
 
@@ -109,3 +110,4 @@ void output(double x1, double x2, int numOfAnswers) {
     
     printf("Program completed! Have a good day!\n");
 }
+
