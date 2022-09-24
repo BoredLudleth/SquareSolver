@@ -8,12 +8,19 @@
 #include <ctype.h>
 #include "SquareSolver.hpp"
 
+#define DEBUG
+
+#if defined (DEBUG)
+
 #define NEWASSERT(condition)                                                            \
     if (!(condition)) {                                                                 \
         printf("Problem with in file %s in function %s, condition %s in line %d\n",     \
                __FILE__, __FUNCTION__, #condition, __LINE__);                           \
         exit(1);                                                                        \
     }
+#else
+    #define NEWASSERT(condition) ;
+#endif
 
 void input(double *a, double *b, double *c) {
     NEWASSERT(a != NULL && b != NULL && c != NULL);
@@ -110,4 +117,3 @@ void output(double x1, double x2, int numOfAnswers) {
     
     printf("Program completed! Have a good day!\n");
 }
-
