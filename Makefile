@@ -16,7 +16,7 @@ Tests.o: Tests.cpp
 	g++ -c Tests.cpp -o Tests.o
 
 run_tests: test
-	test
+	.\test
 
 run_solver: solver
-	solver
+	.\solver
