@@ -7,4 +7,4 @@
 \brief Function tests program
 */
 
-int test(double k1, double k2, double k3, int correctAns);
+int test(double a, double b, double c, int correctAns, int num_test);
